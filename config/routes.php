@@ -3,6 +3,7 @@
 use App\DataBase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
 use Slim\Views\TwigMiddleware;
 use Slim\Views\Twig;
@@ -20,16 +21,7 @@ return function (App $app) {
             return $view->render($response, 'index.twig');
         }
     );
-    $app->get(
-        '/home',
-        function ($request, $response, $args) {
-            $view = Twig::fromRequest($request);
-            return $view->render($response, 'template.twig', [
-                'title' => "BMarketing",
-            ]);
-        }
-    );
-    
+
     $app->get(
         '/home-page',
         function ($request, $response, $args) {
@@ -49,6 +41,14 @@ return function (App $app) {
         }
     );
 
+    $app->get(
+        '/b',
+        function (ServerRequestInterface $request, ResponseInterface $response) {
+            // $response->getBody()->write('Hello, World!');
+            include "../App/form.php";
+            return $response;
+        }
+    );
 
 
 

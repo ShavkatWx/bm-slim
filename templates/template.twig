@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		{% block title %}
-			<title>{{ title }}</title>
-		{% endblock %}
-	</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block title %}
+            <title>
+                {{ title }}
+            </title>
+        {% endblock %}
+    </head>
 
-	<body>
-		<header>
-			<nav>
-				<ul>
-					<li><a href="home-page">Главная страница</a></li>
-					<li><a href="about-page">Страница о компании</a></li>
-				</ul>
-			</nav>
-		</header>
-		<h1>{{ title }}</h1>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="home-page">Главная страница</a></li>
+                    <li><a href="about-page">Страница о компании</a></li>
+                </ul>
+            </nav>
+        </header>
+        <h1>
+            {{ title }}
+        </h1>
+		
+        <form action="/b" method="get">
+            <input type="text" name="name">
+            <input type="submit" value="GO" name="btn">
+        </form>
+    
 	</body>
 
 </html>
