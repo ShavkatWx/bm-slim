@@ -15,6 +15,16 @@ return function (App $app) {
     $twig = Twig::create('../templates', ['cache' => false]);
     $app->add(TwigMiddleware::create($app, $twig));
 
+    function dataName($data)
+    {
+        $dataBase = new DataBase();
+        return $dataBase->DataBaseSelect($data);
+    }
+
+
+
+
+
 
     $app->get(
         '/',
@@ -25,23 +35,29 @@ return function (App $app) {
     );
 
     $app->get(
-        '/home-page',
+        '/projects',
         function ($request, $response, $args) {
+            $data = dataName('project_test');
+            $json = json_decode($data);
             $view = Twig::fromRequest($request);
-            return $view->render($response, 'template.twig', [
-                'title' => "Главная страница",
-            ]);
+            return $view->render($response, 'projects.twig', ['title' => 'Проекты','projects' => $json]);
         }
     );
+
     $app->get(
-        '/about-page',
+        '/add-project',
         function ($request, $response, $args) {
             $view = Twig::fromRequest($request);
-            return $view->render($response, 'template.twig', [
-                'title' => "Страница о компании",
+            return $view->render($response, 'add-project.twig', [
+                'title' => "Добавить проект",
             ]);
         }
     );
+
+
+
+
+
 
     $app->get(
         '/form',
@@ -54,13 +70,10 @@ return function (App $app) {
 
 
 
+    
 
-    function dataName($data)
-    {
-        $dataBase = new DataBase();
-        return $dataBase->DataBaseSelect($data);
-    }
 
+    
     $app->get(
         '/home-page-api',
         function (RequestInterface $request, ResponseInterface $response) {

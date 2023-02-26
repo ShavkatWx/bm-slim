@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block title %}
+			<title>
+				{{ title }}
+			</title>
+		{% endblock %}
+	</head>
+
+	<body>
+		<header>
+			<nav>
+				<ul>
+					<li><a href="projects">Проекты</a></li>
+					<li><a href="add-project">Добавить проект</a></li>
+				</ul>
+			</nav>
+		</header>
+		<h1>
+			{{ title }}
+		</h1>
+		{% for project in projects %}
+			<form action="/form">
+				<div>
+					<p>{{project.client}}</p>
+					<div>
+						<input type="hidden" name="id" value="{{project.id}}">
+						<input type="submit" value="Изменить" name="">
+						<input type="submit" value="Удалить" name="delete-project">
+					</div>
+				</div>
+			</form>
+		{% endfor %}
+	</body>
+
+</html>
