@@ -1,5 +1,7 @@
 <?php
 
+// composer install --no-dev --optimize-autoloader
+
 use App\DataBase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -42,9 +44,8 @@ return function (App $app) {
     );
 
     $app->get(
-        '/b',
+        '/form',
         function (ServerRequestInterface $request, ResponseInterface $response) {
-            // $response->getBody()->write('Hello, World!');
             include "../App/form.php";
             return $response;
         }
@@ -54,13 +55,10 @@ return function (App $app) {
 
 
 
-
-
-
-    function dataName($page)
+    function dataName($data)
     {
         $dataBase = new DataBase();
-        return $dataBase->DataBaseConnect($page);
+        return $dataBase->DataBaseSelect($data);
     }
 
     $app->get(
