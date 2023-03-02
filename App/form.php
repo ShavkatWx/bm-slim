@@ -2,7 +2,6 @@
 
 use App\DataBase;
 
-
 $dataBase = new DataBase();
 
 if (isset($_GET['add-project'])) {
@@ -49,11 +48,11 @@ if (isset($_GET['add-project'])) {
 }
 
 
-if (isset($_GET['delete-project'])) {
+if (isset($_POST['delete-project'])) {
     $param = [
-        'id' => $_GET['id']
+        'id' => $_POST['id']
     ];
-    header("Location: /");
-    $dataBase->DataBaseDelete($param);
+    
+    // $dataBase->DataBaseDelete($param);
 
 }

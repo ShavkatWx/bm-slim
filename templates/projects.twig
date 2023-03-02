@@ -25,12 +25,12 @@
 			{{ title }}
 		</h1>
 		{% for project in projects %}
-			<form action="/form">
+			<form action="/project/{{project.id}}" method="post">
 				<div>
 					<p>{{project.client}}</p>
 					<div>
 						<input type="hidden" name="id" value="{{project.id}}">
-						<input type="submit" value="Изменить" name="">
+						<input type="submit" value="Изменить">
 						<input type="submit" value="Удалить" name="delete-project">
 					</div>
 				</div>

@@ -40,7 +40,7 @@ return function (App $app) {
             $data = dataName('project_test');
             $json = json_decode($data);
             $view = Twig::fromRequest($request);
-            return $view->render($response, 'projects.twig', ['title' => 'Проекты','projects' => $json]);
+            return $view->render($response, 'projects.twig', ['title' => 'Проекты', 'projects' => $json]);
         }
     );
 
@@ -55,25 +55,20 @@ return function (App $app) {
     );
 
 
-
-
-
-
-    $app->get(
-        '/form',
-        function (ServerRequestInterface $request, ResponseInterface $response) {
+    $app->post(
+        '/project/{id}',
+        function ($request, $response, $args) {
+            $view = Twig::fromRequest($request);
             include "../App/form.php";
-            return $response;
+            $id = $args['id'];
+            return $view->render($response, 'add-project.twig', [
+                'title' => $id,
+            ]);
         }
     );
 
 
 
-
-    
-
-
-    
     $app->get(
         '/home-page-api',
         function (RequestInterface $request, ResponseInterface $response) {
