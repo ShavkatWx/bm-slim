@@ -52,7 +52,13 @@ if (isset($_POST['delete-project'])) {
     $param = [
         'id' => $_POST['id']
     ];
-    
+
+
+    // return $response
+    //     ->withHeader('Location', 'https://www.google.com')
+    //     ->withStatus(302);
+
+
     // $dataBase->DataBaseDelete($param);
 
 }

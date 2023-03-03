@@ -70,6 +70,16 @@ return function (App $app) {
 
 
     $app->get(
+        '/hf',
+        function ($request, $response, $args) {
+            return $response
+                ->withHeader('Location', 'https://www.google.com')
+                ->withStatus(302);
+        }
+    );
+
+
+    $app->get(
         '/home-page-api',
         function (RequestInterface $request, ResponseInterface $response) {
             $data = dataName('home_page');
@@ -86,7 +96,6 @@ return function (App $app) {
             $data = dataName('about_page');
             $json = json_encode($data, JSON_UNESCAPED_SLASHES);
             $response->getBody()->write($json);
-
             return $response
                 ->withHeader('Content-Type', 'application/json');
         }
