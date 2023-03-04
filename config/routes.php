@@ -18,11 +18,13 @@ return function (App $app) {
     function dataName($data)
     {
         $dataBase = new DataBase();
-        return $dataBase->DataBaseSelect($data);
+        return $dataBase->DataBaseSelectAll($data);
     }
-
-
-
+    function projectId($id)
+    {
+        $dataBase = new DataBase();
+        return $dataBase->DataBaseSelect($id);
+    }
 
 
 
@@ -38,16 +40,16 @@ return function (App $app) {
         '/projects',
         function ($request, $response, $args) {
             $data = dataName('project_test');
-            $json = json_decode($data);
+            // $json = json_decode($data);
             $view = Twig::fromRequest($request);
-            return $view->render($response, 'projects.twig', ['title' => 'Проекты', 'projects' => $json]);
+            return $view->render($response, 'projects.twig', ['title' => 'Проекты', 'projects' => $data]);
         }
     );
 
     $app->get(
         '/add-project',
         function ($request, $response, $args) {
-            $view = Twig::fromRequest($request);
+            $view = Twig::fromRequest($request);    
             return $view->render($response, 'add-project.twig', [
                 'title' => "Добавить проект",
             ]);
@@ -61,22 +63,27 @@ return function (App $app) {
             $view = Twig::fromRequest($request);
             include "../App/form.php";
             $id = $args['id'];
-            return $view->render($response, 'add-project.twig', [
+            return $view->render($response, 'update-project.twig', [
                 'title' => $id,
+                'project' => projectId($id)
             ]);
         }
     );
 
 
 
-    $app->get(
-        '/hf',
-        function ($request, $response, $args) {
-            return $response
-                ->withHeader('Location', 'https://www.google.com')
-                ->withStatus(302);
+    $app->post(
+        '/form',
+        function (ServerRequestInterface $request, ResponseInterface $response) {
+            include "../App/form.php";
+            return $response;
         }
     );
+
+
+
+
+
 
 
     $app->get(
