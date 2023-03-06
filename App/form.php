@@ -2,13 +2,14 @@
 
 use App\DataBase;
 
+
 $dataBase = new DataBase();
 
 if (isset($_POST['add-project'])) {
     $param = [
-        'client' => $_POST['client'],
-        'industry' => $_POST['industry'],
-        'title' => $_POST['title'],
+        // 'client' => $_POST['client'],
+        // 'industry' => $_POST['industry'],
+        // 'title' => $_POST['title'],
         // 'services_1' => $_GET['services_1'],
         // 'services_2' => $_GET['services_2'],
         // 'services_3' => $_GET['services_3'],
@@ -35,19 +36,78 @@ if (isset($_POST['add-project'])) {
         // 'img_11_orientation' => $_GET['img_11_orientation'],
     ];
 
-    $uploadedFiles = $request->getUploadedFiles();
+    $images = $_FILES['img'];
+    $filtered_images = [];
+    $upload_images = [];
 
-    // foreach ($uploadedFiles['img'] as $uploadedFile) {
-        // if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-            // $filename = move_uploaded_file('../img', json_encode($uploadedFile));
-            // $response->write('uploaded ' . $filename . '<br/>');
-    //         print_r('ok');
-    //     }
-    // }
+    foreach ($images as $key_name => $value) {
+        foreach ($value as $key => $item) {
+            $filtered_images[$key][$key_name] = $item;
+        }
+    }
 
-    // foreach ($uploadedFiles['img'] as $uploadedFile) {   
-    //     print_r($uploadedFile);
-    // }
+    function can_upload($file)
+    {
+        foreach ($file as $item) {
+            if ($item['name'] == '')
+                return 'Вы не выбрали файл.';
+            if ($item['size'] == 0)
+                return 'Файл слишком большой.';
+            $getMime = explode('.', $item['name']);
+            $mime = strtolower(end($getMime));
+            $types = array('jpg', 'png', 'gif', 'bmp', 'jpeg', 'webp');
+            if (!in_array($mime, $types))
+                return 'Недопустимый тип файла.';
+            return true;
+        }
+
+    }
+    function make_upload($file)
+    {
+        foreach ($file as $item) {
+            $name = mt_rand(0, 10000000) . $item['name'];
+            global $upload_images;
+            $upload_images[] = $name;
+            move_uploaded_file($item['tmp_name'], "../img/" . $name);
+        }
+    }
+
+    foreach ($filtered_images as $value) {
+        if (isset($value['name'])) {
+            $check = can_upload($filtered_images);
+            if ($check === true) {
+                make_upload($filtered_images);
+            }
+        }
+    }
+
+
+
+
+    print_r($images);
+
+
+
+    $folder = "../img";
+    $imagesss = scandir($folder);
+
+    $dots = array_shift($imagesss);
+    $dots = array_shift($imagesss);
+
+    foreach ($imagesss as $image) {
+
+        $image = substr($image, 0, 4);
+
+        $input = "D:/Programs/OSPanel/domains/bm-slim/img".$image.".jpg";
+        $output = "D:/Programs/OSPanel/domains/bm-slim/img".$image.".webp";
+
+        exec("D:/Programs/OSPanel/domains/bm-slim/libwebp/bin/cwebp {$input} -o {$output}");
+
+    }
+
+
+
+    // $uploadedFiles = $request->getUploadedFiles();
 
     // $dataBase->DataBaseInsert($param);
 }
@@ -57,7 +117,7 @@ if (isset($_POST['delete-project'])) {
     $param = [
         'id' => $_POST['id']
     ];
-    
+
     $dataBase->DataBaseDelete($param);
 }
 

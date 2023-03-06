@@ -19,6 +19,10 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'WebPConvert\\' => 12,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -45,16 +49,24 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
         ),
         'L' => 
         array (
+            'LocateBinaries\\' => 15,
             'Laravel\\SerializableClosure\\' => 28,
         ),
         'I' => 
         array (
             'Invoker\\' => 8,
+            'ImageMimeTypeSniffer\\' => 21,
+            'ImageMimeTypeGuesser\\' => 21,
         ),
         'F' => 
         array (
+            'FileUtil\\' => 9,
             'Fig\\Http\\Message\\' => 17,
             'FastRoute\\' => 10,
+        ),
+        'E' => 
+        array (
+            'ExecWithFallback\\' => 17,
         ),
         'D' => 
         array (
@@ -69,6 +81,10 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
     );
 
     public static $prefixDirsPsr4 = array (
+        'WebPConvert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/webp-convert/src',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -116,8 +132,8 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Container\\' => 
         array (
@@ -131,6 +147,10 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
         array (
             0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
         ),
+        'LocateBinaries\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/locate-binaries/src',
+        ),
         'Laravel\\SerializableClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
@@ -139,6 +159,18 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
         array (
             0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
+        'ImageMimeTypeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/image-mime-type-sniffer/src',
+        ),
+        'ImageMimeTypeGuesser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src',
+        ),
+        'FileUtil\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/file-util/src',
+        ),
         'Fig\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/fig/http-message-util/src',
@@ -146,6 +178,10 @@ class ComposerStaticInit3b5750cf39d910ce2f66671df890761c
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'ExecWithFallback\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rosell-dk/exec-with-fallback/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

@@ -13,23 +13,16 @@
 	</head>
 
 	<body>
-		<header>
-			<nav>
-				<ul>
-					<li><a href="projects">Проекты</a></li>
-					<li><a href="add-project">Добавить проект</a></li>
-				</ul>
-			</nav>
-		</header>
+		{% include 'header.twig' %}
 		<h1>
 			{{ title }}
 		</h1>
 		
 
 		<form action="/form" method="post" enctype="multipart/form-data">
-			<input type="text" name="client">
-			<input type="text" name="industry">
-			<input type="text" name="title">
+			{# <input type="text" name="client"> #}
+			{# <input type="text" name="industry"> #}
+			{# <input type="text" name="title"> #}
 			<input type="file" name="img[]">
 			{# <input type="text" name="services_1">
 			<input type="text" name="services_2">

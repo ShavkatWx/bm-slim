@@ -70,7 +70,7 @@ class DataBase
         $query->execute($param);
 
         if ($query == true) {
-            header("Location: /projects");
+            header("location:javascript://history.go(-1)");
             exit();
         } else {
             print 'Ошибка!';
