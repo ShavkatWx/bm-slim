@@ -46,65 +46,89 @@ if (isset($_POST['add-project'])) {
         }
     }
 
-    function can_upload($file)
+    // foreach ($images as $key_name => $value) {
+    //     foreach ($value as $key => $item) {
+    //         $filtered_images[$key][$key_name] = $item;
+    //         print_r($filtered_images[0]['name']);
+    //         print('<br>');
+    //     }
+    // }
+
+    // function can_upload($file)
+    // {
+    //     foreach ($file as $item) {
+    //         if ($item['name'] == '')
+    //             return 'Вы не выбрали файл.';
+    //         if ($item['size'] == 0)
+    //             return 'Файл слишком большой.';
+    //         $getMime = explode('.', $item['name']);
+    //         $mime = strtolower(end($getMime));
+    //         $types = array('jpg', 'png', 'gif', 'bmp', 'jpeg', 'webp');
+    //         if (!in_array($mime, $types))
+    //             return 'Недопустимый тип файла.';
+    //         return true;
+    //     }
+
+    // }
+    function make_upload($item)
     {
-        foreach ($file as $item) {
-            if ($item['name'] == '')
-                return 'Вы не выбрали файл.';
-            if ($item['size'] == 0)
-                return 'Файл слишком большой.';
-            $getMime = explode('.', $item['name']);
-            $mime = strtolower(end($getMime));
-            $types = array('jpg', 'png', 'gif', 'bmp', 'jpeg', 'webp');
-            if (!in_array($mime, $types))
-                return 'Недопустимый тип файла.';
-            return true;
+        // foreach ($file as $item) {
+        // $name = mt_rand(0, 10000000) . substr($item[0]['name'], 0, -3) . 'webp';
+        // global $upload_images;
+        // $upload_images[] = $name;
+
+        // $jpg = imagecreatefromjpeg($item[0]['tmp_name']);
+        // $w = imagesx($jpg);
+        // $h = imagesy($jpg);
+        // $webp = imagecreatetruecolor($w, $h);
+        // imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
+        // imagewebp($webp, '../img/' . $name, 100);
+        // imagedestroy($jpg);
+        // imagedestroy($webp);
+
+
+        // move_uploaded_file($item['tmp_name'], "../img/" . $name);
+        for ($i = 0; $i < count($item); $i++) {
+            $name = mt_rand(0, 10000000) . substr($item[$i]['name'], 0, -3) . 'webp';
+            // global $upload_images;
+            // $upload_images[] = $name;
+
+            $jpg = imagecreatefromjpeg($item[$i]['tmp_name']);
+            $w = imagesx($jpg);
+            $h = imagesy($jpg);
+            $webp = imagecreatetruecolor($w, $h);
+            imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
+            imagewebp($webp, '../img/' . $name, 100);
+            imagedestroy($jpg);
+            imagedestroy($webp);
         }
 
-    }
-    function make_upload($file)
-    {
-        foreach ($file as $item) {
-            $name = mt_rand(0, 10000000) . $item['name'];
-            global $upload_images;
-            $upload_images[] = $name;
-            move_uploaded_file($item['tmp_name'], "../img/" . $name);
-        }
+        // }
     }
 
-    foreach ($filtered_images as $value) {
-        if (isset($value['name'])) {
-            $check = can_upload($filtered_images);
-            if ($check === true) {
-                make_upload($filtered_images);
-            }
-        }
-    }
+    // foreach ($filtered_images as $value) {
+    // if (isset($value['name'])) {
+    //     $check = can_upload($filtered_images);
+    //     if ($check === true) {
+    make_upload($filtered_images);
+    // print_r($value['name']);
+
+    // }
+    // }
+    // }
 
 
-
-
-    print_r($images);
-
-
-
-    $folder = "../img";
-    $imagesss = scandir($folder);
-
-    $dots = array_shift($imagesss);
-    $dots = array_shift($imagesss);
-
-    foreach ($imagesss as $image) {
-
-        $image = substr($image, 0, 4);
-
-        $input = "D:/Programs/OSPanel/domains/bm-slim/img".$image.".jpg";
-        $output = "D:/Programs/OSPanel/domains/bm-slim/img".$image.".webp";
-
-        exec("D:/Programs/OSPanel/domains/bm-slim/libwebp/bin/cwebp {$input} -o {$output}");
-
-    }
-
+    // $images_folder = array_diff(scandir('../img/'), ['..', '.']);
+    // foreach ($images_folder as $image) {
+    //     $jpg = imagecreatefromjpeg('../img/' . $image);
+    //     $w = imagesx($jpg);
+    //     $h = imagesy($jpg);
+    //     $webp = imagecreatetruecolor($w, $h);
+    //     imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
+    //     imagewebp($webp, '../img/' . substr($image, 0, -4) . '.webp', 100);
+    //     imagedestroy($jpg);
+    //     imagedestroy($webp);
+    // }
 
 
     // $uploadedFiles = $request->getUploadedFiles();
