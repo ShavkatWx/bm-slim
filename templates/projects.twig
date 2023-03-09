@@ -10,6 +10,7 @@
 				{{ title }}
 			</title>
 		{% endblock %}
+		<link rel="stylesheet" href="../css/style.css">
 	</head>
 
 	<body>
@@ -19,16 +20,18 @@
 		</h1>
 		{% for project in projects %}
 			<form action="/project/{{project.id}}" method="post">
+				<p>{{project.client}}</p>
 				<div>
-					<p>{{project.client}}</p>
-					<div>
-						<input type="hidden" name="id" value="{{project.id}}">
-						<input type="submit" value="Изменить">
-						<input type="submit" value="Удалить" name="delete-project">
-					</div>
+					<input type="hidden" name="id" value="{{project.id}}">
+					<input type="submit" value="Изменить">
+					<input class="delete-project-check" type="button" value="Удалить">
+				</div>
+				<div class="delete-project-modal">
+					<input type="submit" value="Удалить" name="delete-project">
 				</div>
 			</form>
 		{% endfor %}
+		<script src="../js/main.js"></script>
 	</body>
 
 </html>

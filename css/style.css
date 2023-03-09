@@ -1,0 +1,6 @@
+.delete-project-modal{
+    display: none;
+}
+.open-modal{
+    display: block;
+}

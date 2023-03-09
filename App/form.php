@@ -6,35 +6,6 @@ use App\DataBase;
 $dataBase = new DataBase();
 
 if (isset($_POST['add-project'])) {
-    $param = [
-        // 'client' => $_POST['client'],
-        // 'industry' => $_POST['industry'],
-        // 'title' => $_POST['title'],
-        // 'services_1' => $_GET['services_1'],
-        // 'services_2' => $_GET['services_2'],
-        // 'services_3' => $_GET['services_3'],
-        // 'services_4' => $_GET['services_4'],
-        // 'year' => $_GET['year'],
-        // 'link' => $_GET['link'],
-        // 'video' => $_GET['video'],
-        // 'orientation' => $_GET['orientation'],
-        // 'home_page' => $_GET['home_page'],
-        // 'video_1' => $_GET['video_1'],
-        // 'video_2' => $_GET['video_2'],
-        // 'video_3' => $_GET['video_3'],
-        // 'video_4' => $_GET['video_4'],
-        // 'img_project' => $_GET['img_project'],
-        // 'img_2_orientation' => $_GET['img_2_orientation'],
-        // 'img_3_orientation' => $_GET['img_3_orientation'],
-        // 'img_4_orientation' => $_GET['img_4_orientation'],
-        // 'img_5_orientation' => $_GET['img_5_orientation'],
-        // 'img_6_orientation' => $_GET['img_6_orientation'],
-        // 'img_7_orientation' => $_GET['img_7_orientation'],
-        // 'img_8_orientation' => $_GET['img_8_orientation'],
-        // 'img_9_orientation' => $_GET['img_9_orientation'],
-        // 'img_10_orientation' => $_GET['img_10_orientation'],
-        // 'img_11_orientation' => $_GET['img_11_orientation'],
-    ];
 
     $images = $_FILES['img'];
     $filtered_images = [];
@@ -46,94 +17,54 @@ if (isset($_POST['add-project'])) {
         }
     }
 
-    // foreach ($images as $key_name => $value) {
-    //     foreach ($value as $key => $item) {
-    //         $filtered_images[$key][$key_name] = $item;
-    //         print_r($filtered_images[0]['name']);
-    //         print('<br>');
-    //     }
-    // }
+    for ($i = 0; $i < count($filtered_images); $i++) {
+        $name = mt_rand(0, 10000000) . substr($filtered_images[$i]['name'], 0, -3) . 'webp';
+        global $upload_images;
+        $upload_images[] = $name;
 
-    // function can_upload($file)
-    // {
-    //     foreach ($file as $item) {
-    //         if ($item['name'] == '')
-    //             return 'Вы не выбрали файл.';
-    //         if ($item['size'] == 0)
-    //             return 'Файл слишком большой.';
-    //         $getMime = explode('.', $item['name']);
-    //         $mime = strtolower(end($getMime));
-    //         $types = array('jpg', 'png', 'gif', 'bmp', 'jpeg', 'webp');
-    //         if (!in_array($mime, $types))
-    //             return 'Недопустимый тип файла.';
-    //         return true;
-    //     }
-
-    // }
-    function make_upload($item)
-    {
-        // foreach ($file as $item) {
-        // $name = mt_rand(0, 10000000) . substr($item[0]['name'], 0, -3) . 'webp';
-        // global $upload_images;
-        // $upload_images[] = $name;
-
-        // $jpg = imagecreatefromjpeg($item[0]['tmp_name']);
-        // $w = imagesx($jpg);
-        // $h = imagesy($jpg);
-        // $webp = imagecreatetruecolor($w, $h);
-        // imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
-        // imagewebp($webp, '../img/' . $name, 100);
-        // imagedestroy($jpg);
-        // imagedestroy($webp);
-
-
-        // move_uploaded_file($item['tmp_name'], "../img/" . $name);
-        for ($i = 0; $i < count($item); $i++) {
-            $name = mt_rand(0, 10000000) . substr($item[$i]['name'], 0, -3) . 'webp';
-            // global $upload_images;
-            // $upload_images[] = $name;
-
-            $jpg = imagecreatefromjpeg($item[$i]['tmp_name']);
-            $w = imagesx($jpg);
-            $h = imagesy($jpg);
-            $webp = imagecreatetruecolor($w, $h);
-            imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
-            imagewebp($webp, '../img/' . $name, 100);
-            imagedestroy($jpg);
-            imagedestroy($webp);
-        }
-
-        // }
+        $jpg = imagecreatefromjpeg($filtered_images[$i]['tmp_name']);
+        $w = imagesx($jpg);
+        $h = imagesy($jpg);
+        $webp = imagecreatetruecolor($w, $h);
+        imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
+        imagewebp($webp, '../img/' . $name, 100);
+        imagedestroy($jpg);
+        imagedestroy($webp);
     }
 
-    // foreach ($filtered_images as $value) {
-    // if (isset($value['name'])) {
-    //     $check = can_upload($filtered_images);
-    //     if ($check === true) {
-    make_upload($filtered_images);
-    // print_r($value['name']);
+    $param = [
+        'client' => $_POST['client'],
+        'industry' => $_POST['industry'],
+        'title' => $_POST['title'],
+        'services_1' => $_POST['services_1'],
+        'services_2' => $_POST['services_2'],
+        'services_3' => $_POST['services_3'],
+        'services_4' => $_POST['services_4'],
+        'year' => $_POST['year'],
+        'description' => $_POST['description'],
+        'link' => $_POST['link'],
+        'video' => $_POST['video'],
+        'orientation' => $_POST['orientation'],
+        'home_page' => $_POST['home_page'],
+        'video_1' => $_POST['video_1'],
+        'video_2' => $_POST['video_2'],
+        'video_3' => $_POST['video_3'],
+        'video_4' => $_POST['video_4'],
+        'img_project' => $_POST['img_project'],
+        'img_1' => $upload_images[0],
+        'img_2' => $upload_images[1],
+        'img_3' => $upload_images[2],
+        'img_4' => $upload_images[3],
+        'img_5' => $upload_images[4],
+        'img_6' => $upload_images[5],
+        'img_7' => $upload_images[6],
+        'img_8' => $upload_images[7],
+        'img_9' => $upload_images[8],
+        'img_10' => $upload_images[9],
+        'img_11' => $upload_images[10],
+    ];
 
-    // }
-    // }
-    // }
-
-
-    // $images_folder = array_diff(scandir('../img/'), ['..', '.']);
-    // foreach ($images_folder as $image) {
-    //     $jpg = imagecreatefromjpeg('../img/' . $image);
-    //     $w = imagesx($jpg);
-    //     $h = imagesy($jpg);
-    //     $webp = imagecreatetruecolor($w, $h);
-    //     imagecopy($webp, $jpg, 0, 0, 0, 0, $w, $h);
-    //     imagewebp($webp, '../img/' . substr($image, 0, -4) . '.webp', 100);
-    //     imagedestroy($jpg);
-    //     imagedestroy($webp);
-    // }
-
-
-    // $uploadedFiles = $request->getUploadedFiles();
-
-    // $dataBase->DataBaseInsert($param);
+    $dataBase->DataBaseInsert($param);
 }
 
 
@@ -141,6 +72,16 @@ if (isset($_POST['delete-project'])) {
     $param = [
         'id' => $_POST['id']
     ];
+
+    $induction = mysqli_connect('116.202.82.235', 'bmarketi_user', 'db_Bmarketing2211', 'bmarketi_database');
+    $result = mysqli_query($induction, "SELECT * FROM `project_test` WHERE id = $_POST[id]");
+    $projectDelImg = mysqli_fetch_assoc($result);
+    $dir = '../img/';
+    // unlink($dir . $projectDelImg['img_project']);
+    for ($i = 1; $i < 12; $i++) {
+        unlink($dir . $projectDelImg['img_' . $i]);
+    }
+
 
     $dataBase->DataBaseDelete($param);
 }
@@ -152,31 +93,36 @@ if (isset($_POST['update-project'])) {
         'client' => $_POST['client'],
         'industry' => $_POST['industry'],
         'title' => $_POST['title'],
-        // 'services_1' => $_GET['services_1'],
-        // 'services_2' => $_GET['services_2'],
-        // 'services_3' => $_GET['services_3'],
-        // 'services_4' => $_GET['services_4'],
-        // 'year' => $_GET['year'],
-        // 'link' => $_GET['link'],
-        // 'video' => $_GET['video'],
-        // 'orientation' => $_GET['orientation'],
-        // 'home_page' => $_GET['home_page'],
-        // 'video_1' => $_GET['video_1'],
-        // 'video_2' => $_GET['video_2'],
-        // 'video_3' => $_GET['video_3'],
-        // 'video_4' => $_GET['video_4'],
-        // 'img_project' => $_GET['img_project'],
-        // 'img_2_orientation' => $_GET['img_2_orientation'],
-        // 'img_3_orientation' => $_GET['img_3_orientation'],
-        // 'img_4_orientation' => $_GET['img_4_orientation'],
-        // 'img_5_orientation' => $_GET['img_5_orientation'],
-        // 'img_6_orientation' => $_GET['img_6_orientation'],
-        // 'img_7_orientation' => $_GET['img_7_orientation'],
-        // 'img_8_orientation' => $_GET['img_8_orientation'],
-        // 'img_9_orientation' => $_GET['img_9_orientation'],
-        // 'img_10_orientation' => $_GET['img_10_orientation'],
-        // 'img_11_orientation' => $_GET['img_11_orientation'],
+        'services_1' => $_POST['services_1'],
+        'services_2' => $_POST['services_2'],
+        'services_3' => $_POST['services_3'],
+        'services_4' => $_POST['services_4'],
+        'year' => $_POST['year'],
+        'description    ' => $_POST['description'],
+        'link' => $_POST['link'],
+        'video' => $_POST['video'],
+        'orientation' => $_POST['orientation'],
+        'home_page' => $_POST['home_page'],
+        'video_1' => $_POST['video_1'],
+        'video_2' => $_POST['video_2'],
+        'video_3' => $_POST['video_3'],
+        'video_4' => $_POST['video_4'],
     ];
 
     $dataBase->DataBaseUpdate($param);
+}
+
+
+
+if (isset($_POST['update-page-content'])) {
+
+    $page_name = $_POST['page_name'];
+
+    $param = [
+        'id' => $_POST['id'],
+        'content' => $_POST['content']
+    ];
+
+
+    $dataBase->DataBasePageUpdate($param, $page_name);
 }

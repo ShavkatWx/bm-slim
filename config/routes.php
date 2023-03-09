@@ -71,6 +71,32 @@ return function (App $app) {
     );
 
 
+    $app->get(
+        '/home-page',
+        function ($request, $response, $args) {
+            $data = dataName('home_page_test');
+            include "../App/form.php";
+            $view = Twig::fromRequest($request);
+            return $view->render($response, 'page.twig', ['title' => 'Главная страница', 'page' => $data,'page_name'=>'home_page_test']);
+        }
+    );
+    $app->get(
+        '/about-page',
+        function ($request, $response, $args) {
+            $data = dataName('about_page_test');
+            include "../App/form.php";
+            $view = Twig::fromRequest($request);
+            return $view->render($response, 'page.twig', ['title' => 'Страница о компании', 'page' => $data,'page_name'=>'about_page_test']);
+        }
+    );
+    $app->post(
+        '/page/{id}',
+        function (ServerRequestInterface $request, ResponseInterface $response) {
+            include "../App/form.php";
+            return $response;
+        }
+    );;
+
 
     $app->post(
         '/form',

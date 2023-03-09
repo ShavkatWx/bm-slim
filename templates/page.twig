@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block title %}
+			<title>
+				{{ title }}
+			</title>
+		{% endblock %}
+		<link rel="stylesheet" href="../css/style.css">
+	</head>
+
+	<body>
+		{% include 'header.twig' %}
+		<h1>
+			{{ title }}
+		</h1>
+		{% for page_info in page %}
+			<form action="/page/{{page_info.id}}" method="post">
+				<input type="hidden" name="id" value="{{page_info.id}}">
+				<input type="hidden" name="page_name" value="{{page_name}}">
+				<textarea name="content" id="{{page_info.id}}" cols="30" rows="10"></textarea>
+				<script>
+					document.getElementById({{ page_info.id }}).value = `{{page_info.content}}`;
+				</script>
+				<input type="submit" name="update-page-content" value="Обновить">
+			</form>
+		{% endfor %}
+		<script src="../js/main.js"></script>
+	</body>
+</html></body></html>
